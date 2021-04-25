@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# script clears the port 3000 if its in use
+
+kill -9 $(lsof -t -i:3000)
+echo "port is free boy!"
+
