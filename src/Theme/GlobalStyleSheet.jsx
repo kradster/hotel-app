@@ -22,6 +22,12 @@ export const GlobalStyleSheet =  createGlobalStyle`
     .container{
       width:100vw;
       height:100vh;
+      display:flex;
+
+      main{
+        flex:1;
+        padding:2rem;
+      }
     }
 
 `

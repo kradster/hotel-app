@@ -34,10 +34,10 @@ border-radius: 0px 24px 24px 0px;
     background: #FFFFFF;
     box-shadow:
     0px 8px 20px -3px #0000000d,
-    0px 20px 0px -8px #fff,
+    0px 18px 0px -4px #fff,
     0px 33px 45px -20px #00000029,
-    0px 40px 0px -16px #fff,
-    0px 28px 32px -8px rgba(0, 0, 0, 0.2);
+    0px 35px 0px -10px #fff,
+    0px 28px 32px -4px rgba(0, 0, 0, 0.2);
 
     
     border-radius: 20px;
