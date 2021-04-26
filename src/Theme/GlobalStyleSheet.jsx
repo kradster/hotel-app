@@ -21,7 +21,8 @@ export const GlobalStyleSheet =  createGlobalStyle`
 
     .container{
       width:100vw;
-      height:100vh;
+      min-height:100vh;
+      height:auto;
       display:flex;
 
       main{

@@ -10,7 +10,7 @@ import { useState } from 'react'
 
 const SidebarContainer = styled.aside`
 width:19rem;
-height: 100%;
+height:auto;
 background-color: #F7F7F7;
 padding:1rem;
 display:flex;
