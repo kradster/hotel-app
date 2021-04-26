@@ -3,8 +3,12 @@ import {createGlobalStyle}  from 'styled-components'
 
 export const GlobalStyleSheet =  createGlobalStyle`
 
+:root{
+  font-size:12px;
+}
   *{
-    // font-family: 'Poppins', sans-serif;
+    box-sizing:border-box;
+    font-family: 'Open Sans', sans-serif;
   }
 
 
@@ -13,6 +17,11 @@ export const GlobalStyleSheet =  createGlobalStyle`
         padding:0;
         margin:0;
         background-color:${props => props.theme.bgColor};
+    }
+
+    .container{
+      width:100vw;
+      height:100vh;
     }
 
 `

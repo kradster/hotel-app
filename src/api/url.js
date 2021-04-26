@@ -1,14 +1,8 @@
-const BASE_URL = "https://beta.creatext.io"
-// const BASE_URL = "http://192.168.1.5:8000"
+const BASE_URL = "https://api.sheety.co/bdcbafbc1f4197dda178b9e69f6ccee9/techAlchemyWebTest1"
 
-export const WEBSOCKET_URL = "wss://beta.creatext.io/api/editor/real-time"
-export const SIGNUP_URL = BASE_URL+"/api/signup"
-export const LOGIN_URL = BASE_URL+"/api/login"
-export const DASHBOARD_URL = BASE_URL+"/api/dashboard"
-export const FORMAL_URL = BASE_URL+"/api/editor/formal"
-export const CONCISENESS_URL = BASE_URL+"/api/editor/conciseness"
-export const INFORMAL_URL = BASE_URL+"/api/editor/informal"
-export const REWRITE_URL = BASE_URL+"/api/editor/rewrite"
-export const FIRST_TO_THIRD_URL = BASE_URL+"/api/editor/first_to_third"
-export const LIST_DOCS = BASE_URL+"/api/document/"
-export const SAVE = BASE_URL+"/api/save"
+export const GET_ALL_RESTAURANTS = BASE_URL+"/allRestaurants"
+
+export const GET_RESTAURANT_DETAILS = BASE_URL+"/restaurantDetails"
+
+export const GET_MENU = BASE_URL+"/menu"
+
