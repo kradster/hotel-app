@@ -2,10 +2,10 @@ import Axios from "axios"
 import {GET_ALL_RESTAURANTS,GET_RESTAURANT_DETAILS,GET_MENU} from './url'
 
 
-export const formalAction = ()=>{
+export const getAllRestaurantsAction = ()=>{
     return AxioWrapper(GET_ALL_RESTAURANTS)
 }
-export const concisenessAction = ()=>{
+export const getRestaurantDetailsAction = ()=>{
     return AxioWrapper(GET_RESTAURANT_DETAILS)
 }
 export const informalAction = ()=>{

@@ -20,14 +20,13 @@ export const GlobalStyleSheet =  createGlobalStyle`
     }
 
     .container{
-      width:100vw;
-      min-height:100vh;
-      height:auto;
+      height:100vh;
       display:flex;
 
       main{
         flex:1;
         padding:2rem;
+        overflow-y:auto;
       }
     }
 

@@ -9,7 +9,7 @@ import styled from 'styled-components'
 import { useState } from 'react'
 
 const SidebarContainer = styled.aside`
-width:19rem;
+width:22rem;
 height:auto;
 background-color: #F7F7F7;
 padding:1rem;

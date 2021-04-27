@@ -43,14 +43,21 @@ const SortWrapper = styled.div`
     }
 `;
 
-const IconWrapper = styled.span`
-    width:3rem;
-    height:3rem;
+export const IconWrapper = styled.span`
+    width:3.5rem;
+    height:3.5rem;
     display:flex;
     align-items:center;
     justify-content:center;
 
-    ${({left})=> left?`margin-right:auto;`:`margin-left:1rem;` }
+    margin:${({left,noMargin})=>{
+        switch (true) {
+            case left: return `0 auto 0 0;`
+            case noMargin: return `0;`
+            default: return `0 0 0 1rem;`
+        }
+        } 
+    };
     background-color:${({cart,light})=>{
         switch(true){
             case cart: return `#FB6D3A`;
@@ -69,6 +76,9 @@ const IconWrapper = styled.span`
     };
     border-radius:0.9rem;
     cursor:pointer;
+
+    
+
     svg{
         font-size:1.7em;
     }
@@ -99,7 +109,7 @@ const SearchInput = styled.div`
 const FilterPanelWindow = styled.div`
     display:${({show})=> show===true?`flex`:`none`};
     width:100vw;
-    height:100vh;
+    height:120vh;
     position:fixed;
     top:0;
     left:0;
@@ -125,13 +135,13 @@ const FiltersSidebar = styled.div`
     padding:1.5rem 2rem;
     display:flex;
     flex-direction:column;
-    transform:translateX(-30rem);
+    transform:translateX(10rem);
     animation:tt .5s forwards ease-in-out;
 
 
     @keyframes tt {
-        from{ transform:translateX(500px);}
-        to{transform:translateX(0px);}
+        from{ transform:translateX(10rem);}
+        to{transform:translateX(0rem);}
     }
 
 
