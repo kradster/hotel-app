@@ -6,38 +6,44 @@ import c2_img from '../assets/images/category/Logocat_biking.png'
 import c3_img from '../assets/images/category/Logocat_pizzahut.png'
 import c4_img from '../assets/images/category/Logocat_macd.png'
 import { IconWrapper } from './Navbar'
+import { useContext } from 'react'
+import { RestaurentContext } from '../Context/RestaurentContext'
 
 export const Headings = styled.p`
     color:#182135;
-    font-size:1.5rem;
+    font-size:2rem;
     font-weight:700;
     margin-bottom:2rem;
 
 `;
 
-const CategoriesWrapper = styled.div`
+export const CategoriesWrapper = styled.div`
     display:flex;
+    flex-wrap:wrap;
 
 `
 
-const CategoryItem = styled.div`
+export const CategoryItem = styled.div`
     display:flex;
     align-items:center;
-    
+    background-color:${({isActive})=> isActive?`#F7F7F7`:`#FFFFFF` };
     border-radius:1rem;
     padding:0 0.7rem 0 0.5rem;
+    cursor:pointer;
     & + & {
         margin-left:3.5rem;
     }
     transition: all .3s ease-in-out;
     &:hover{
-        background-color:#F7F7F7;
+        ${({noHover})=> !noHover?`background-color:#F7F7F7`:`background-color:#FFFFFF`  };
     }
     p {
         font-weight:700;
-        margin:0;
-        margin-left:1rem;
+        margin:0 1rem 0 1rem;
         font-size:1.3rem;
+    }
+    span+p {
+        margin:0 0 0 1rem;
     }
 `;
 
@@ -47,18 +53,30 @@ const CATEGORIES = [
     {id:"cat_1",img:c1_img,lable:"Baked"},
     {id:"cat_2",img:c2_img,lable:"Sweet"},
     {id:"cat_3",img:c3_img,lable:"Hot Dish"},
-    {id:"cat_4",img:c4_img,lable:"fast Food"},
+    {id:"cat_4",img:c4_img,lable:"Fast Food"},
     {id:"cat_5",img:c4_img,lable:"Salads"},
 ]
 
 const Categories = () => {
+    const {Category,setCategory} = useContext(RestaurentContext);
+
     return (
         <div>
             <Headings>Category</Headings>
             <CategoriesWrapper>
+                    <CategoryItem 
+                    isActive={Category==="ALL"} 
+                    onClick={e=>setCategory("ALL")}
+                    >
+                    <p>All</p>
+                </CategoryItem>
                 {
                     CATEGORIES.map(cat=>(
-                        <CategoryItem>
+                        <CategoryItem
+                        key={cat.id} 
+                        isActive={Category===cat.lable} 
+                        onClick={e=>setCategory(cat.lable)}
+                        >
                             <IconWrapper light noMargin >
                                 <img src={cat.img} alt={cat.lable} />
                             </IconWrapper>

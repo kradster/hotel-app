@@ -2,10 +2,13 @@ import React from 'react'
 import {FiChevronLeft} from 'react-icons/fi'
 import {FaStoreAlt} from 'react-icons/fa'
 import {MdClose, MdUnfoldMore} from 'react-icons/md'
-import {AiOutlineSearch,AiOutlineShoppingCart} from 'react-icons/ai'
+import {AiOutlineSearch,AiOutlineShoppingCart,AiFillFire} from 'react-icons/ai'
 import {BiFilter} from 'react-icons/bi'
 import styled from 'styled-components'
 import { useState } from 'react'
+import { RestaurentContext } from '../Context/RestaurentContext'
+import { useContext } from 'react'
+import { CategoryItem,CategoriesWrapper } from './Categories'
 
 
 const NavBarContainer = styled.nav`
@@ -58,18 +61,20 @@ export const IconWrapper = styled.span`
         }
         } 
     };
-    background-color:${({cart,light})=>{
+    background-color:${({cart,light,fire})=>{
         switch(true){
             case cart: return `#FB6D3A`;
             case light: return `#F7F7F7`;
+            case fire:return `#FDF0EB`;
             default:return `#503E9D`;
         }
     }
     };
-    color:${({textlight,textdark})=>{
+    color:${({textlight,textdark,fire})=>{
         switch(true){
             case textdark: return `#251525`;
             case textlight: return `#F7F7F`;
+            case fire:return `#FB6D3A`;
             default:return `#ffffff`;
         }
     }
@@ -111,6 +116,7 @@ const FilterPanelWindow = styled.div`
     width:100vw;
     height:120vh;
     position:fixed;
+    z-index:9;
     top:0;
     left:0;
     background: rgba(0, 0, 0, 0.16);
@@ -207,6 +213,14 @@ const FilterPanel = ({onClose,show})=>{
                     </IconWrapper>
                 </div>
                 <TextHeading>Sort by</TextHeading>
+                <CategoriesWrapper>
+                     <CategoryItem noHover>
+                            <IconWrapper fire noMargin >
+                                <AiFillFire/>
+                            </IconWrapper>
+                            <p>Open</p>
+                        </CategoryItem>
+                </CategoriesWrapper>
                 <TextHeading>Cuisine</TextHeading>
                 <Button bottom >Apply filters</Button>
 
@@ -218,14 +232,25 @@ const FilterPanel = ({onClose,show})=>{
 
 
 function Navbar() {
-
     const [ShowFilter, setShowFilter] = useState(false)
+    const {singleRestaurent,setsingleRestaurent,setSearchVal} = useContext(RestaurentContext)
+    const [search, setsearch] = useState("")
+
+
+    const onSearch = (e)=>{
+        if(e.which===13){
+            setSearchVal(search)
+        }
+    }
 
     return (
         <NavBarContainer>
-            <IconWrapper left>
+            <IconWrapper left onClick={e=>setsingleRestaurent({})} >
                 <FiChevronLeft/>
             </IconWrapper>
+            {
+                 !Object.keys(singleRestaurent).length && (
+                    <>
             <SortWrapper>
                 <FaStoreAlt/>
                 <span>Da Otto</span>
@@ -233,12 +258,21 @@ function Navbar() {
             </SortWrapper>
             <SearchInput>
                 <AiOutlineSearch/>
-                <input placeholder="Search for Restaurants  (Press Enter to search)" />
+                <input 
+                onKeyDown={onSearch}
+                value={search}
+                onChange={e=>setsearch(e.target.value)}
+                placeholder="Search for Restaurants  (Press Enter to search)" 
+                />
             </SearchInput>
 
             <IconWrapper onClick={e=>setShowFilter(true)} >
                 <BiFilter/>
             </IconWrapper>
+                </>
+
+                )
+            }
             <IconWrapper cart>
                 <AiOutlineShoppingCart/>
             </IconWrapper>
