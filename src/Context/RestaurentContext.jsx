@@ -11,6 +11,7 @@ const RestaurentContextProvider = ({children}) => {
     const [singleRestaurent, setsingleRestaurent] = useState({})
     const [Category, _setCategory] = useState("ALL")
     const [isLoading, setisLoading] = useState(false)
+    const [openMenu, setopenMenu] = useState(false)
 
     function setSearchVal(val){
         if(val==="") return setallRestaurants(Restaurants)
@@ -58,7 +59,9 @@ const RestaurentContextProvider = ({children}) => {
             Category,
             setCategory,
             setSearchVal,
-            isLoading
+            isLoading,
+            openMenu, 
+            setopenMenu
             }}>
             {children}
         </RestaurentContext.Provider>

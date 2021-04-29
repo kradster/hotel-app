@@ -14,17 +14,26 @@ const RestaurantsHeadings = styled(Headings)`
 
 const RestaurantsCardsWrapper = styled.div`
     width:100%;
-    display:flex;
-    flex-wrap: wrap;
-    justify-content:flex-start;
-    gap:2.5rem;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    // flex-wrap: wrap;
+    // justify-content:flex-start;
+    grid-gap:2.5rem;
+
+    @media screen and (max-width:425px){
+        grid-template-columns:repeat(1,1fr);
+    }
+
+    @media screen and (min-width:768px){
+        grid-template-columns:repeat(2,1fr);
+    }
+    @media screen and (min-width:1440px){
+        grid-template-columns:repeat(4,1fr);
+    }
 `;
 
 const Card = styled.div`
-flex-basis:27rem;
-flex-grow:1;
-flex-shrink:1;
-// max-width:27rem;
+width:100%;
 display:flex;
 flex-direction:column;
 overflow:hidden;
@@ -32,9 +41,7 @@ opacity:0;
 cursor:pointer;
 animation:scale 1s .${p=>p.delay}s ease-in forwards;
 
-@media screen and (min-width:769px){
-        flex-grow:0;
-}
+
 
 p{
     margin:0;

@@ -34,26 +34,8 @@ const DetailsWrapper = styled.div`
 
 `;
 
-const DetailsContainer = styled.div`
-    display:flex;
-    gap:2rem;
-`;
-
 const Details = styled.div`
     flex:1;
-`;
-
-const Content = styled.p`
-        margin:0;
-        font-size:1.3rem;
-        color:#626264;
-`
-
-const ContentLink = styled.a`
-    font-size:1.3rem;
-    color:#626264;
-
-
 `;
 
 const RestaurentImage = styled.div`
@@ -68,6 +50,36 @@ const RestaurentImage = styled.div`
     }
 
 `
+
+const DetailsContainer = styled.div`
+    display:flex;
+    gap:2rem;
+
+    @media screen and (max-width:425px){
+        flex-direction:column;
+        & ${Details} + ${RestaurentImage}{
+            display:none;
+        }
+    }
+
+`;
+
+
+
+const Content = styled.p`
+        margin:0;
+        font-size:1.3rem;
+        color:#626264;
+`
+
+const ContentLink = styled.a`
+    font-size:1.3rem;
+    color:#626264;
+
+
+`;
+
+
 
 const Info = styled.div`
     margin-top:1.5rem;
@@ -94,6 +106,9 @@ const RestaurentDetails = () => {
     return (
         <DetailsWrapper>
             <DetailsContainer>
+            <RestaurentImage>
+                <img src={singleRestaurent.restaurantImage} alt={singleRestaurent.restaurantName} />
+            </RestaurentImage>
             <Details>
                 <Headings>{singleRestaurent.restaurantName}</Headings>
                 <Content>{singleRestaurent.restaurantDescription}</Content>

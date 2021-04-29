@@ -26,6 +26,9 @@ export const GlobalStyleSheet =  createGlobalStyle`
       main{
         flex:1;
         padding:2rem;
+        @media screen and (max-width:425px){
+          padding:1rem;
+        }
         overflow-y:auto;
       }
     }

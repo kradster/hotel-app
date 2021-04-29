@@ -7,6 +7,8 @@ import c3_img from '../assets/images/category/Logocat_pizzahut.png'
 import c4_img from '../assets/images/category/Logocat_macd.png'
 import { IconWrapper } from './Navbar'
 import { useContext } from 'react'
+import {AiFillAppstore} from 'react-icons/ai'
+
 import { RestaurentContext } from '../Context/RestaurentContext'
 
 export const Headings = styled.p`
@@ -14,6 +16,9 @@ export const Headings = styled.p`
     font-size:2rem;
     font-weight:700;
     margin-bottom:2rem;
+    @media screen and (max-width:425px){
+    margin-bottom:1rem;
+    }
 
 `;
 
@@ -43,8 +48,16 @@ export const CategoryItem = styled.div`
         font-size:1.3rem;
     }
     span+p {
-        margin:0 0 0 1rem;
+        margin:0 0 0 0.5rem;
     }
+    @media screen and (max-width:425px){
+        & + & {
+            margin-left:0.5rem;
+        }
+        
+        height:48px;
+    }
+
 `;
 
 
@@ -68,6 +81,9 @@ const Categories = () => {
                     isActive={Category==="ALL"} 
                     onClick={e=>setCategory("ALL")}
                     >
+                    <IconWrapper light noMargin >
+                        <AiFillAppstore/>
+                    </IconWrapper>
                     <p>All</p>
                 </CategoryItem>
                 {

@@ -1,10 +1,10 @@
 import React from 'react'
 import {FiChevronLeft} from 'react-icons/fi'
 import {GoChevronDown} from 'react-icons/go'
-import {FaStoreAlt} from 'react-icons/fa'
+import {FaHamburger, FaStoreAlt} from 'react-icons/fa'
 import {MdClose, MdUnfoldMore} from 'react-icons/md'
 import {AiOutlineSearch,AiOutlineShoppingCart,AiFillFire} from 'react-icons/ai'
-import {BiFilter} from 'react-icons/bi'
+import {BiFilter, BiMenu} from 'react-icons/bi'
 import styled from 'styled-components'
 import { useState } from 'react'
 import { RestaurentContext } from '../Context/RestaurentContext'
@@ -12,14 +12,7 @@ import { useContext } from 'react'
 import { CategoryItem,CategoriesWrapper } from './Categories'
 
 
-const NavBarContainer = styled.nav`
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
 
-    
-
-`;
 
 const SortWrapper = styled.div`
     height:3rem;
@@ -130,7 +123,8 @@ const FilterPanelWindow = styled.div`
         from{ opacity:0;}
         to{opacity:1;}
     }
-   
+
+       
 
 `;
 
@@ -162,6 +156,13 @@ const FiltersSidebar = styled.div`
         }
     }
 
+    @media screen and (max-width:425px){
+        width:70vw;
+        padding:1rem;
+        
+    }
+
+
 `;
 
 const TextHeading = styled.p`
@@ -169,6 +170,12 @@ const TextHeading = styled.p`
     font-weight:700;
     margin-top:3rem;
     margin-bottom:2em;
+    
+    @media screen and (max-width:425px){
+        margin-top:1rem;
+        margin-bottom:1rem;
+            
+    }
 `
 
 const Button = styled.button`
@@ -239,6 +246,8 @@ export const Cuisine = styled.div`
         }
     }};
 
+    
+
 `;
 
 const SeeMore = styled.div`
@@ -256,6 +265,36 @@ const SeeMore = styled.div`
         font-size:2rem;
         
     }
+
+`;
+
+const NavBarContainer = styled.nav`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    .menu-icon{
+        display:none;
+    }
+    
+
+    @media screen and (max-width:425px){
+        height:30vw;
+        align-items:baseline;
+        position:relative;
+        & .menu-icon{
+            display:flex;
+        }
+        & ${SearchInput} {
+            position:absolute;
+            bottom:0px;
+            margin-auto;
+            width:100%;
+            input {
+                width:100%;
+            }
+        }
+    }
+    
 
 `;
 
@@ -299,7 +338,7 @@ const FilterPanel = ({onClose,show})=>{
                     <span>See more</span>
                     <GoChevronDown/>
                 </SeeMore>
-                <Button bottom >Apply filters</Button>
+                <Button onClick={e=>onClose(false)} bottom >Apply filters</Button>
 
             </FiltersSidebar>
         </FilterPanelWindow>
@@ -310,7 +349,7 @@ const FilterPanel = ({onClose,show})=>{
 
 function Navbar() {
     const [ShowFilter, setShowFilter] = useState(false)
-    const {singleRestaurent,setsingleRestaurent,setSearchVal} = useContext(RestaurentContext)
+    const {singleRestaurent,setsingleRestaurent,setSearchVal,setopenMenu} = useContext(RestaurentContext)
     const [search, setsearch] = useState("")
 
 
@@ -322,9 +361,17 @@ function Navbar() {
 
     return (
         <NavBarContainer>
-            <IconWrapper left onClick={e=>setsingleRestaurent({})} >
-                <FiChevronLeft/>
+            <IconWrapper className="menu-icon" style={{marginRight:"10px"}} left onClick={e=>setopenMenu(true)} >
+                <BiMenu/>
             </IconWrapper>
+            {
+                Object.keys(singleRestaurent).length>0 && (
+                <IconWrapper left onClick={e=>setsingleRestaurent({})} >
+                    <FiChevronLeft/>
+                </IconWrapper>
+
+                )
+            }
             {
                  !Object.keys(singleRestaurent).length && (
                     <>
