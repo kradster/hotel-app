@@ -1,6 +1,6 @@
 # Hotel-App
 
-full fledge resturent explorer web app, that you need. where you  can easily find and make order for you favourite dish.
+Full fledge restaurant explorer web App, that you need. Where you can easily find and make an order for your favourite dish.
 
 ## Step 1 install some software
 Node Js => https://nodejs.org/en/
