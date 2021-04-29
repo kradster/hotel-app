@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { useContext } from 'react';
 import { BiGlobe} from 'react-icons/bi';
 import styled from 'styled-components'
@@ -6,9 +6,14 @@ import { RestaurentContext } from '../Context/RestaurentContext';
 import { Headings } from './Categories'
 import {AiOutlineClockCircle} from 'react-icons/ai'
 import {MdPhone} from 'react-icons/md'
+import { PlaceHolderMenus } from './PlaceHolderMenu';
+import {Cuisine,CuisineWrapper} from './Navbar'
+
+
 
 const DetailsWrapper = styled.div`
     display:flex;
+    flex-direction:column;
     gap:2rem;
     opacity:0;
     animation:scale 1s ease-in forwards;
@@ -27,6 +32,11 @@ const DetailsWrapper = styled.div`
         }
     }
 
+`;
+
+const DetailsContainer = styled.div`
+    display:flex;
+    gap:2rem;
 `;
 
 const Details = styled.div`
@@ -78,17 +88,12 @@ const ContentInfo = styled.div`
 
 const RestaurentDetails = () => {
     const {singleRestaurent} = useContext(RestaurentContext)
-    console.log('_singleRestaurent_',singleRestaurent);
-    // contactNumber: "+447987654344"
-// id: 2
-// openingHours: "Mon - Thu: 10:30AM - 11:00 PM, Fri - Sat: 10:30 AM - 06:00 PM"
-// restaurantDescription: "From the outside it looks rustic, pleasant and snug. Hardwooden planks and stone pillars make up most of the building's outer structure.\nIt's difficult to see through the darkened windows, but the passionate voices from within can be felt outside."
-// restaurantImage: "https://wallpapercave.com/wp/wp1874157.jpg"
-// restaurantName: "Burger Mania"
-// websiteUrl: "http://www.burgermania.com"
+    const CuisinsArray = ["All","Baked (2)","Sweet (4)","Hot Dish (29)"] 
+    const [ActiveCuisine, setActiveCuisine] = useState(CuisinsArray[0])
     
     return (
         <DetailsWrapper>
+            <DetailsContainer>
             <Details>
                 <Headings>{singleRestaurent.restaurantName}</Headings>
                 <Content>{singleRestaurent.restaurantDescription}</Content>
@@ -111,6 +116,27 @@ const RestaurentDetails = () => {
             <RestaurentImage>
                 <img src={singleRestaurent.restaurantImage} alt={singleRestaurent.restaurantName} />
             </RestaurentImage>
+            </DetailsContainer>
+            <CuisineWrapper>
+                    {
+                        CuisinsArray.map((cu,i)=>(
+                            <Cuisine
+                             key={`cu-key-${i}`} 
+                             isMenu={ActiveCuisine===cu}
+                             onClick={e=>setActiveCuisine(cu)}
+                             >{cu}</Cuisine>
+
+                        ))
+                    }
+                </CuisineWrapper>
+
+            <Headings>Menus</Headings>
+            <DetailsContainer>
+                <PlaceHolderMenus delay="1"/>
+                <PlaceHolderMenus delay="2"/>
+                <PlaceHolderMenus delay="3"/>
+            </DetailsContainer>
+        
         </DetailsWrapper>
     )
 }

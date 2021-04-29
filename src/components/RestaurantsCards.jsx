@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { getAllRestaurantsAction } from '../api/api'
 import { RestaurentContext } from '../Context/RestaurentContext'
 import { Headings } from './Categories'
+import {PlaceHolderCards} from './PlaceHolderCards'
 
 
 const RestaurantsHeadings = styled(Headings)`
@@ -107,11 +108,12 @@ const RestaurantsCardsItems = ({data})=>{
             <p>{data.restaurantDescription.slice(0,200)}... </p>
         </Card>
     )
-} 
+}
+
 
 const RestaurantsCards = () => {
     
-    const {allRestaurants} = useContext(RestaurentContext)
+    const {allRestaurants,isLoading} = useContext(RestaurentContext)
     
     
     return (
@@ -119,14 +121,24 @@ const RestaurantsCards = () => {
             <RestaurantsHeadings>Restaurants</RestaurantsHeadings>
         <RestaurantsCardsWrapper>
             {
-                allRestaurants.map((r,i)=>(
-                    <RestaurantsCardsItems  
-                    key={`res-key-${r.id}-${i}`} 
-                    data={r} 
-                />
-                ))
+               isLoading===true
+               ?<>
+                <PlaceHolderCards delay="1" />
+                <PlaceHolderCards delay="2" />
+                <PlaceHolderCards delay="3" />
+               </>
+               :<>
+                {
+                    allRestaurants.map((r,i)=>(
+                        <RestaurantsCardsItems  
+                        key={`res-key-${r.id}-${i}`} 
+                        data={r} 
+                    />
+                    ))
+                }
+               </> 
             }
-            
+             
         </RestaurantsCardsWrapper>
         </>
     )

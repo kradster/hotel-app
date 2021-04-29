@@ -1,5 +1,6 @@
 import React from 'react'
 import {FiChevronLeft} from 'react-icons/fi'
+import {GoChevronDown} from 'react-icons/go'
 import {FaStoreAlt} from 'react-icons/fa'
 import {MdClose, MdUnfoldMore} from 'react-icons/md'
 import {AiOutlineSearch,AiOutlineShoppingCart,AiFillFire} from 'react-icons/ai'
@@ -114,7 +115,7 @@ const SearchInput = styled.div`
 const FilterPanelWindow = styled.div`
     display:${({show})=> show===true?`flex`:`none`};
     width:100vw;
-    height:120vh;
+    height:100vh;
     position:fixed;
     z-index:9;
     top:0;
@@ -201,8 +202,68 @@ const Button = styled.button`
 
 `
 
+export const CuisineWrapper = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+`
+export const Cuisine = styled.div`
+    padding:0.7rem 1rem 0.7rem 1rem;
+    border-radius: 6px;
+    margin:0 1rem 1rem 0;
+    font-size:1.2rem;
+    min-width:80px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background-color:${({isActive,isMenu})=>{
+        switch(true){
+            case isActive:return `#FDF0EB`;
+            case isMenu:return `#503E9D`;
+            default:return `#F7F7F7`;
+        }
+    }};
+
+    color:${({isActive,isMenu})=>{
+        switch(true){
+            case isActive:return `#FB6D3A`;
+            case isMenu:return `#FFFFFF`;
+            default:return `#626264`;
+        }
+    }};
+    font-weight:${({isActive,isMenu})=>{
+        switch(true){
+            case isActive:return `700`;
+            case isMenu:return `700`;
+            default:return `400`;
+        }
+    }};
+
+`;
+
+const SeeMore = styled.div`
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    color:#FB6D3A;
+    margin:2rem 0 2rem 0;
+    
+    span{
+        font-weight:600;
+        font-size:1.2rem;
+    }
+    svg{
+        font-size:2rem;
+        
+    }
+
+`;
+
 
 const FilterPanel = ({onClose,show})=>{
+    const CuisinsArray = ["All","Fast food","American food","Pizza","Asian","Dessert","Mexican","Breakfast"] 
+    const [ActiveCuisine, setActiveCuisine] = useState(CuisinsArray[0])
+
     return (
         <FilterPanelWindow show={show} >
             <FiltersSidebar show={show}>
@@ -222,6 +283,22 @@ const FilterPanel = ({onClose,show})=>{
                         </CategoryItem>
                 </CategoriesWrapper>
                 <TextHeading>Cuisine</TextHeading>
+                <CuisineWrapper>
+                    {
+                        CuisinsArray.map((cu,i)=>(
+                            <Cuisine
+                             key={`cu-key-${i}`} 
+                             isActive={ActiveCuisine===cu} 
+                             onClick={e=>setActiveCuisine(cu)}
+                             >{cu}</Cuisine>
+
+                        ))
+                    }
+                </CuisineWrapper>
+                <SeeMore>
+                    <span>See more</span>
+                    <GoChevronDown/>
+                </SeeMore>
                 <Button bottom >Apply filters</Button>
 
             </FiltersSidebar>

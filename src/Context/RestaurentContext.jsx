@@ -10,6 +10,7 @@ const RestaurentContextProvider = ({children}) => {
     const [RestaurantsDetails, setRestaurantsDetails] = useState([])
     const [singleRestaurent, setsingleRestaurent] = useState({})
     const [Category, _setCategory] = useState("ALL")
+    const [isLoading, setisLoading] = useState(false)
 
     function setSearchVal(val){
         if(val==="") return setallRestaurants(Restaurants)
@@ -22,9 +23,6 @@ const RestaurentContextProvider = ({children}) => {
         _setCategory(cat);
         if(cat==="ALL") return setallRestaurants(Restaurants) ;
         let ct = Restaurants.filter(r=>r.restaurantCategory.includes(cat))
-        console.log('====================================');
-        console.log(ct);
-        console.log('====================================');
         setallRestaurants(ct);
     }
     
@@ -35,11 +33,13 @@ const RestaurentContextProvider = ({children}) => {
     }
 
     const getData = async ()=>{
+        setisLoading(true);
         let allRest = await getAllRestaurantsAction();
         let restDetails = await getRestaurantDetailsAction();
         setallRestaurants(allRest.data.allRestaurants);
         setRestaurants(allRest.data.allRestaurants);
         setRestaurantsDetails(restDetails.data.restaurantDetails);
+        setisLoading(false);
     }
 
     useEffect(() => {
@@ -57,7 +57,8 @@ const RestaurentContextProvider = ({children}) => {
             setsingleRestaurent,
             Category,
             setCategory,
-            setSearchVal
+            setSearchVal,
+            isLoading
             }}>
             {children}
         </RestaurentContext.Provider>
