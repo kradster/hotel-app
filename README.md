@@ -10,11 +10,18 @@ Git => https://git-scm.com/
 	download or clone this repository on your computer, 
 
 ## Step 3 Run Web app
-`open repository directory.`
-`open comman line here and run commands`
-`npm i `
-`npm start`
-`this automatically open your browser window with running web app`
+	open repository directory.
+## 	
+	open comman line here and run commands
+	
+## 
+	npm i
+
+## 
+	npm start
+
+##
+	this automatically open your browser window with running web app
 
 ### Now that's it .
  
