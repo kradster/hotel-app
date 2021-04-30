@@ -335,17 +335,12 @@ const Sidebar = () => {
     const {openMenu,setopenMenu} = useContext(RestaurentContext)
     const [Active, setActive] = useState("nav-item-1")
 
-    function close(){
-        setopenMenu("close")
-        setTimeout(() => {
-        setopenMenu(false)
-        },1000);
-    }
+    
 
     return (
         <SidebarContainerWrapper show={openMenu}>
             <SidebarContainer show={openMenu} >
-                <CloseButton onClick={close}>
+                <CloseButton onClick={e=>setopenMenu(false)}>
                     <MdClose/>
                 </CloseButton>
                 <HeaderBar>
