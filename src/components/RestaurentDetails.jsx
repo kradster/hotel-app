@@ -8,6 +8,9 @@ import {AiOutlineClockCircle} from 'react-icons/ai'
 import {MdPhone} from 'react-icons/md'
 import { PlaceHolderMenus } from './PlaceHolderMenu';
 import {Cuisine,CuisineWrapper} from './Navbar'
+import { useEffect } from 'react';
+
+import {ImFileEmpty} from 'react-icons/im'
 
 
 
@@ -39,26 +42,28 @@ const Details = styled.div`
 `;
 
 const RestaurentImage = styled.div`
+    display:block;
     margin-top:2rem;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0.16));
+    background-image:${({bgUrl})=>`url(${bgUrl})`};
+    background-size: cover;
     border-radius: 16px;
     overflow:hidden;
     flex:1;
     height:296px;
-    img{
-        width:120%;
-    }
-
+    
 `
 
 const DetailsContainer = styled.div`
     display:flex;
     gap:2rem;
 
-    @media screen and (max-width:425px){
-        flex-direction:column;
-        & ${Details} + ${RestaurentImage}{
-            display:none;
+    @media screen and (max-width:425px){       
+        flex-direction:column-reverse;
+        ${RestaurentImage}{
+            flex:none;
+            margin-top:-2rem;
+            height:15rem;
+
         }
     }
 
@@ -96,19 +101,39 @@ const ContentInfo = styled.div`
     }
 `
 
+export const ErrorMessage = styled.h2`
+    margin:5rem auto;
+    color: #fb6d3a;
+    background-color: #fb6d3a2b;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    svg{
+        font-size:4rem;
+        margin-right:1rem;
+        fill: #fb6d3a;
+
+    }
+`;
+
 
 
 const RestaurentDetails = () => {
-    const {singleRestaurent} = useContext(RestaurentContext)
+    const {singleRestaurent,isMenuLoading,setisMenuLoading} = useContext(RestaurentContext)
     const CuisinsArray = ["All","Baked (2)","Sweet (4)","Hot Dish (29)"] 
     const [ActiveCuisine, setActiveCuisine] = useState(CuisinsArray[0])
     
+
+    useEffect(() => {
+        setTimeout(()=>{
+            setisMenuLoading(false)
+        },3000)
+    }, [])
+
     return (
         <DetailsWrapper>
             <DetailsContainer>
-            <RestaurentImage>
-                <img src={singleRestaurent.restaurantImage} alt={singleRestaurent.restaurantName} />
-            </RestaurentImage>
             <Details>
                 <Headings>{singleRestaurent.restaurantName}</Headings>
                 <Content>{singleRestaurent.restaurantDescription}</Content>
@@ -128,8 +153,8 @@ const RestaurentDetails = () => {
                     </ContentInfo>
                 </Info>
             </Details>
-            <RestaurentImage>
-                <img src={singleRestaurent.restaurantImage} alt={singleRestaurent.restaurantName} />
+            <RestaurentImage bgUrl={singleRestaurent.restaurantImage}>
+                {/* <img src={singleRestaurent.restaurantImage} alt={singleRestaurent.restaurantName} /> */}
             </RestaurentImage>
             </DetailsContainer>
             <CuisineWrapper>
@@ -147,9 +172,15 @@ const RestaurentDetails = () => {
 
             <Headings>Menus</Headings>
             <DetailsContainer>
-                <PlaceHolderMenus delay="1"/>
-                <PlaceHolderMenus delay="2"/>
-                <PlaceHolderMenus delay="3"/>
+                {
+                    isMenuLoading ?
+                    <>
+                    <PlaceHolderMenus delay="1"/>
+                    <PlaceHolderMenus delay="2"/>
+                    <PlaceHolderMenus delay="3"/>
+                    </>
+                    :<ErrorMessage><ImFileEmpty/> Menu Not Found</ErrorMessage>
+                }
             </DetailsContainer>
         
         </DetailsWrapper>

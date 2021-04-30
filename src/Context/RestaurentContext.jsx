@@ -12,11 +12,20 @@ const RestaurentContextProvider = ({children}) => {
     const [Category, _setCategory] = useState("ALL")
     const [isLoading, setisLoading] = useState(false)
     const [openMenu, setopenMenu] = useState(false)
+    const [isMenuLoading, setisMenuLoading] = useState(true);
+    const [ShowSearchError, setShowSearchError] = useState(false)
 
     function setSearchVal(val){
         if(val==="") return setallRestaurants(Restaurants)
         let fr = Restaurants.filter(f=>f.restaurantName.toLowerCase().includes(val.toLowerCase()))
-        setallRestaurants(fr);
+        if(fr.length>0){
+            setallRestaurants(fr);
+        }else{
+            setShowSearchError(true);
+            setTimeout(() => {
+                setShowSearchError(false);
+            },3000);
+        }
     }
 
 
@@ -61,7 +70,11 @@ const RestaurentContextProvider = ({children}) => {
             setSearchVal,
             isLoading,
             openMenu, 
-            setopenMenu
+            setopenMenu,
+            isMenuLoading, 
+            setisMenuLoading,
+            ShowSearchError,
+            setShowSearchError
             }}>
             {children}
         </RestaurentContext.Provider>

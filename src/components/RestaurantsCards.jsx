@@ -6,6 +6,7 @@ import { getAllRestaurantsAction } from '../api/api'
 import { RestaurentContext } from '../Context/RestaurentContext'
 import { Headings } from './Categories'
 import {PlaceHolderCards} from './PlaceHolderCards'
+import {ErrorMessage} from './RestaurentDetails'
 
 
 const RestaurantsHeadings = styled(Headings)`
@@ -24,11 +25,11 @@ const RestaurantsCardsWrapper = styled.div`
         grid-template-columns:repeat(1,1fr);
     }
 
-    @media screen and (min-width:768px){
+    @media screen and (max-width:1024px) and (min-width:425px){
         grid-template-columns:repeat(2,1fr);
     }
     @media screen and (min-width:1440px){
-        grid-template-columns:repeat(4,1fr);
+        grid-template-columns:repeat(3,1fr);
     }
 `;
 
@@ -68,9 +69,11 @@ width:100%;
 height: 176px;
 overflow:hidden;
 border-radius: 16px;
-
+background-image:${({bgUrl})=>`url(${bgUrl})`};
+background-size: cover;
 img{
-    width:120%;
+    width:100%;
+    hight:100%;
 }
 
 `;
@@ -105,8 +108,8 @@ const RestaurantsCardsItems = ({data})=>{
 
     return (
         <Card delay={data.id} onClick={r=>getRestaurent(data.id)} >
-            <CardImage>
-                <img src={data.restaurantImage} />
+            <CardImage bgUrl={data.restaurantImage} >
+                {/* <img src={data.restaurantImage} /> */}
             </CardImage>
             <CardHeading isOpen={data.isOpen}>
                 <p>{data.restaurantName}</p>
@@ -120,12 +123,13 @@ const RestaurantsCardsItems = ({data})=>{
 
 const RestaurantsCards = () => {
     
-    const {allRestaurants,isLoading} = useContext(RestaurentContext)
-    
+    const {allRestaurants,isLoading,ShowSearchError} = useContext(RestaurentContext)
+
     
     return (
         <>
             <RestaurantsHeadings>Restaurants</RestaurantsHeadings>
+            {ShowSearchError && <ErrorMessage>Restaurant Not Found</ErrorMessage> }
         <RestaurantsCardsWrapper>
             {
                isLoading===true
@@ -136,12 +140,12 @@ const RestaurantsCards = () => {
                </>
                :<>
                 {
-                    allRestaurants.map((r,i)=>(
+                   allRestaurants.map((r,i)=>(
                         <RestaurantsCardsItems  
                         key={`res-key-${r.id}-${i}`} 
                         data={r} 
                     />
-                    ))
+                    )) 
                 }
                </> 
             }

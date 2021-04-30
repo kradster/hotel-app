@@ -36,6 +36,14 @@ const Menu = styled.ul`
     span{
         margin-left:20px;
     }
+    
+    span+span{
+        background:#503E9D;
+        color:#FFFFFF;
+        padding:0.1rem 0.5rem;
+        border-radius:1rem;
+        margin-left:auto;
+    }
 
     }
     .active a{
@@ -192,7 +200,7 @@ display:flex;
 flex-direction:column;
 border-radius: 0px 24px 24px 0px;
 
-@media screen and (min-width:426px) and (max-width:768px) {
+@media screen and (max-width:768px) and  (min-width:426px){
     width:7rem;
 
     & ${Menu} {
@@ -210,7 +218,7 @@ border-radius: 0px 24px 24px 0px;
     }
 
     & ${HeaderBar}{
-        img{
+        span{
             display:none;
         }
     }
@@ -350,6 +358,7 @@ const Sidebar = () => {
                     <Link to={n.path}>
                         <n.icon size="20" />
                         <span>{n.label}</span>
+                        {n.count && <span> {n.count} </span>}
                     </Link>
                 </li>
 

@@ -46,6 +46,7 @@ export const IconWrapper = styled.span`
     display:flex;
     align-items:center;
     justify-content:center;
+    position:relative;
 
     margin:${({left,noMargin})=>{
         switch (true) {
@@ -271,11 +272,21 @@ const SeeMore = styled.div`
 const NavBarContainer = styled.nav`
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
+
+    ${SortWrapper}{
+        margin-left:auto;
+    }
+
     .menu-icon{
         display:none;
     }
     
+    @media screen and (max-width:768px) and (min-width:425px) {
+        & ${SearchInput} {
+            width:30vw;
+        }
+    }
 
     @media screen and (max-width:425px){
         height:30vw;
@@ -284,6 +295,7 @@ const NavBarContainer = styled.nav`
         & .menu-icon{
             display:flex;
         }
+        
         & ${SearchInput} {
             position:absolute;
             bottom:0px;
@@ -297,6 +309,19 @@ const NavBarContainer = styled.nav`
     
 
 `;
+
+const CartItem = styled.span`
+    background:#503E9D;
+    color:#FFFFFF;
+    padding:0.1rem 0.5rem;
+    border-radius:1rem;
+    margin-left:auto;
+    position: absolute;
+    bottom: -3px;
+    right: -6px;
+    font-weight: 700;
+
+`
 
 
 const FilterPanel = ({onClose,show})=>{
@@ -399,6 +424,13 @@ function Navbar() {
             }
             <IconWrapper cart>
                 <AiOutlineShoppingCart/>
+                {
+
+                    Object.keys(singleRestaurent).length>0 && (
+                        <CartItem>5</CartItem>
+                        )
+                    }
+
             </IconWrapper>
             
             <FilterPanel show={ShowFilter} onClose={setShowFilter} />
