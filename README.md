@@ -20,7 +20,7 @@ Git => https://git-scm.com/
 ## Step 3 Run Web app
 	open repository directory.
 ## 	
-	open comman line here and run commands
+	open command line here and run commands
 	
 ## 
 	npm i
